@@ -12,7 +12,7 @@ describe("Rover class", function () {
     expect(rover.generatorWatts).toBe(110);
   });
 
-  it("response returned by receiveMessage contains the name of the message", function ()  {
+  it("response returned by receiveMessage contains the name of the message", function () {
     const message = new Message("Test Message", []);
     const result = rover.receiveMessage(message);
     expect(result.message).toBe("Test Message");
@@ -28,6 +28,7 @@ describe("Rover class", function () {
   });
 
   it("responds correctly to the status check command", function () {
+    const rover = new Rover(100)
     const message = new Message("Test Message", [
       { commandType: "STATUS_CHECK" },
     ]);
@@ -59,5 +60,13 @@ describe("Rover class", function () {
     const result = rover.receiveMessage(message);
     expect(result.results[0].completed).toBe(false);
     expect(rover.position).toBe(100); // Position should not change
+  });
+  it("responds with the position for the move command", function () {
+    const message = new Message("Test Message", [
+      { commandType: "MOVE", value: "newPosition" },
+    ]);
+    const result = rover.receiveMessage(message);
+    expect(result.results[0].completed).toBe(true);
+    expect(rover.position).toBe("newPosition");
   });
 });
