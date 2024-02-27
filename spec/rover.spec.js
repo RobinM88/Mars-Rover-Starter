@@ -37,7 +37,7 @@ describe("Rover class", function () {
     expect(result.results[0].roverStatus).toEqual({
       mode: "NORMAL",
       generatorWatts: 110,
-      position: 200,
+      position: 100,
     });
   });
 
